@@ -28,37 +28,49 @@ window.addEventListener("resize", showSlide);
 sliderBtnNext.addEventListener("click", nextSlide);
 sliderBtnPrev.addEventListener("click", prevSlide);
 
-let number = true;
+let dots = true;
+let time = null;
+let interval = null;
+let delay = 5000;
+let timeOutDelay = delay / 5;
+
 sliderDots.forEach((item) => {
   item.addEventListener("click", () => {
-    number = false;
-    setTimeout(() => {
-      number = true;
-    }, 9000);
+    clearTimeout(time);
+    clearInterval(interval);
+    dots = false;
+    time = setTimeout(() => {
+      dots = true;
+      prod();
+    }, delay / 5);
   });
 });
+const prod = () => {
+  if (dots) {
+    interval = setInterval(() => {
+      nextSlide();
+    }, delay);
+  }
+};
+prod();
 sliderBtnNext.addEventListener("click", () => {
-  number = false;
-  setTimeout(() => {
-    number = true;
-  }, 9000);
+  clearTimeout(time);
+  clearInterval(interval);
+  dots = false;
+  time = setTimeout(() => {
+    dots = true;
+    prod();
+  }, timeOutDelay);
 });
 sliderBtnPrev.addEventListener("click", () => {
-  number = false;
-  setTimeout(() => {
-    number = true;
-  }, 9000);
+  clearTimeout(time);
+  clearInterval(interval);
+  dots = false;
+  time = setTimeout(() => {
+    dots = true;
+    prod();
+  }, timeOutDelay);
 });
-
-let delay = 6000;
-setInterval(() => {
-  if (number) {
-    nextSlide();
-    delay = 6000;
-  } else {
-    delay = 10000;
-  }
-}, delay);
 
 function showSlide() {
   sliderWidth = document.querySelector(".slider").offsetWidth;
