@@ -42,7 +42,7 @@ sliderDots.forEach((item) => {
     time = setTimeout(() => {
       dots = true;
       prod();
-    }, delay / 5);
+    }, timeOutDelay);
   });
 });
 const prod = () => {
